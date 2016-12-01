@@ -15,6 +15,19 @@ export const toggleTodo = (id) => ({
   id,
 });
 
+// --------------------------------
 
+/*
+addPeriod
+editPeriod
+autofillPeriodsForDay
+addPlannedItem
+addActualItem
+editInterruptions
+addInteruption
+deleteInterruption
+editInterruption
 
-
+editItem
+deleteItem
+*/
