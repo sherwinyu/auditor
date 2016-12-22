@@ -20,6 +20,8 @@ const INITIAL_STATE = {
   ],
   visibilityFilter: 'SHOW_ALL',
 
+  // ------------
+
   days: [
     1, 2, 3,
   ],
