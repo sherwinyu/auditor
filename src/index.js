@@ -33,13 +33,23 @@ const INITIAL_STATE = {
     ],
   },
   day: {
-    periods: [{
-      startTime: 'ISO 8601 date string',
-      planned: [{
-        text: '',
-        duration: '23',
-      }],
-    }],
+    date: '2016-03-02',
+    periods: [
+      {
+        startTime: '3pm',
+        planned: [{
+          text: '',
+          duration: '23',
+        }],
+      },
+      {
+        startTime: '4pm',
+        planned: [{
+          text: '',
+          duration: '23',
+        }],
+      },
+    ],
   },
 };
 
