@@ -39,15 +39,19 @@ const INITIAL_STATE = {
         startTime: '3pm',
         planned: [{
           text: '',
-          duration: '23',
+          duration: 23,
         }],
+        actual: [],
+        interruptions: [],
       },
       {
         startTime: '4pm',
         planned: [{
           text: '',
-          duration: '23',
+          duration: 23,
         }],
+        actual: [],
+        interruptions: [],
       },
     ],
   },

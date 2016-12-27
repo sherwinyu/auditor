@@ -16,11 +16,13 @@ export const toggleTodo = (id) => ({
 });
 
 // --------------------------------
+export const addPeriod = () => ({
+  type: 'ADD_PERIOD',
+});
 
 /*
-addPeriod
 editPeriod
-autofillPeriodsForDay
+autofillPeriodsForDa
 addPlannedItem
 addActualItem
 editInterruptions
