@@ -25,7 +25,11 @@ const mapStateToProps = (state) => ({
   day: state.day,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = (dispatch) => ({
+  onAddPeriod: (e) => {
+    dispatch(addPeriod());
+  },
+});
 
 const App = () => (
   <div>
@@ -68,11 +72,11 @@ Period.propTypes = {
   period: PERIOD_SHAPE,
 };
 
-const Day = ({store, day}) => (
+const Day = ({onAddPeriod, day}) => (
   <div>
     <h2>{day.date}</h2>
     <button
-      onClick={(e) => store.dispatch(addPeriod())}
+      onClick={onAddPeriod}
     >
       Add Period
     </button>
@@ -83,17 +87,17 @@ const Day = ({store, day}) => (
 );
 
 Day.propTypes = {
-  store: React.PropTypes.object.isRequired,
   day: DAY_SHAPE,
+  onAddPeriod: React.PropTypes.func.isRequired,
 };
 
-const Home = ({day}) => (
-  <Day day={day} />
+const Home = ({day, onAddPeriod}) => (
+  <Day day={day} onAddPeriod={onAddPeriod} />
 );
 
 Home.propTypes = {
-  store: React.PropTypes.object.isRequired,
   day: DAY_SHAPE,
+  onAddPeriod: React.PropTypes.func.isRequired,
 };
 
 const ConnectedHome = connect(mapStateToProps, mapDispatchToProps)(Home);
