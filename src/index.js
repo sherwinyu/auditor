@@ -38,10 +38,15 @@ const INITIAL_STATE = {
       {
         startTime: '3pm',
         planned: [{
-          text: '',
-          duration: 23,
+          text: 'Knock out emails',
+          duration: 5,
         }],
-        actual: [],
+        actual: [
+          {
+            text: 'Knock out emails',
+            duration: 5,
+          },
+        ],
         interruptions: [],
       },
       {

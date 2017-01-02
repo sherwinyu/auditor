@@ -6,7 +6,7 @@ const period = (state = {}, action) => {
   switch (action.type) {
     case 'ADD_PERIOD':
       return {
-        startTime: '5pm',
+        startTime: (new Date()).toISOString(),
         planned: [],
         actual: [],
         interruptions: [],
