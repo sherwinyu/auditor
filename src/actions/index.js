@@ -20,6 +20,9 @@ export const addPeriod = () => ({
   type: 'ADD_PERIOD',
 });
 
+export const editItem = () => ({
+});
+
 /*
 editPeriod
 autofillPeriodsForDa
