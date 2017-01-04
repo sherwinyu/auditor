@@ -10,7 +10,7 @@ import AddTodo from '../containers/AddTodo';
 import VisibleTodoList from '../containers/VisibleTodoList';
 
 const mapStateToProps = (state) => ({
-  day: state.day,
+  day: state.days.byId[state.day],
 });
 
 const mapDispatchToProps = (dispatch) => ({
