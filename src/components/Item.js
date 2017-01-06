@@ -24,6 +24,7 @@ const Item = React.createClass({
 
   _handleSaveItem() {
     this.props.onEditItem({
+      id: this.props.item.id,
       text: this.state.inputText,
       duration: 5,
     });

@@ -29,7 +29,31 @@ const day = (state = {}, action) => {
 
 const days = (state = {}, action) => state;
 const periods = (state = {}, action) => state;
-const items = (state = {}, action) => state;
+
+function editItem(state = {}, action) {
+  const {payload} = action;
+  const {id, text, duration} = payload;
+
+  return {
+    byId: {
+      ...state.byId,
+      [id]: {
+        id,
+        text,
+        duration,
+      },
+    },
+  };
+}
+
+
+const items = (state = {}, action) => {
+  switch (action.type) {
+    case 'EDIT_ITEM': return editItem(state, action);
+    default:
+      return state;
+  }
+};
 
 const todoApp = combineReducers({
   todos,

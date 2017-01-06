@@ -72,6 +72,7 @@ const INITIAL_STATE = {
 };
 
 const store = createStore(reducer, INITIAL_STATE);
+window.store = store;
 
 render(
   <Provider store={store}>

@@ -20,7 +20,13 @@ export const addPeriod = () => ({
   type: 'ADD_PERIOD',
 });
 
-export const editItem = () => ({
+export const editItem = ({id, text, duration}) => ({
+  type: 'EDIT_ITEM',
+  payload: {
+    id,
+    text,
+    duration,
+  },
 });
 
 /*

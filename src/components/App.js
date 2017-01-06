@@ -104,9 +104,9 @@ const mapDispatchToProps = (dispatch) => ({
   onAddPeriod: (e) => {
     dispatch(addPeriod());
   },
-  onEditItem: (newItem) => {
-    console.log('Editing new item', newItem, editItem());
-    // dispatch(editItem())
+  onEditItem: ({id, text, duration}) => {
+    console.log('Editing new item', editItem({id, text, duration}));
+    dispatch(editItem({id, text, duration}));
   },
 });
 const ConnectedHome = connect(mapStateToProps, mapDispatchToProps)(Home);
