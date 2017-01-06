@@ -27,10 +27,17 @@ const day = (state = {}, action) => {
   }
 };
 
+const days = (state = {}, action) => state;
+const periods = (state = {}, action) => state;
+const items = (state = {}, action) => state;
+
 const todoApp = combineReducers({
   todos,
   visibilityFilter,
   day,
+  days,
+  periods,
+  items,
 });
 
 export default todoApp;

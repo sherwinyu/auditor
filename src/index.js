@@ -22,56 +22,53 @@ const INITIAL_STATE = {
 
   // ------------
 
-  days: [
-    1, 2, 3,
-  ],
-  daysById: {
-    id: 0,
-    name: '2016-11-25',
-    timelog: [
-
-    ],
-  },
   items: {
     byId: {
-      '1': {
+      1: {
+        id: 1,
         duration: 30,
-        text: 'Destroy email'
+        text: 'Destroy email',
       },
-      '2': {
+      2: {
+        id: 2,
         duration: 5,
-        text: 'Order instacart'
+        text: 'Order instacart',
       },
-      '3': {
+      3: {
+        id: 3,
         duration: 15,
-        text: 'sync with reed'
+        text: 'sync with reed',
       },
     },
   },
   periods: {
     byId: {
-      '1': {
+      1: {
+        id: 1,
         startTime: '3pm',
         planned: [1, 2, 3],
         actual: [],
         interruptions: [],
       },
-      '2': {
+      2: {
+        id: 2,
         startTime: '4pm',
         planned: [3],
         actual: [1, 2, 3],
         interruptions: [],
-      }
+      },
+    },
   },
   days: {
     byId: {
-      '1': {
+      1: {
+        id: 1,
         date: '2016-03-02',
         periods: [1, 2],
       },
-    }
-  }
-  day: '1'
+    },
+  },
+  day: '1',
 };
 
 const store = createStore(reducer, INITIAL_STATE);

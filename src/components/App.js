@@ -9,29 +9,6 @@ import {addPeriod, editItem} from '../actions/index.js';
 import AddTodo from '../containers/AddTodo';
 import VisibleTodoList from '../containers/VisibleTodoList';
 
-const mapStateToProps = (state) => ({
-  day: state.days.byId[state.day],
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onAddPeriod: (e) => {
-    dispatch(addPeriod());
-  },
-  onEditItem: (newItem) => {
-    console.log('Editing new item', newItem, editItem());
-    // dispatch(editItem())
-  },
-});
-
-const App = () => (
-  <div>
-    <AddTodo />
-    <VisibleTodoList />
-    <Footer />
-    <ConnectedHome />
-  </div>
-);
-
 const Period = ({period, onEditItem}) => (
   <div>
     <h3>{period.startTime}</h3>
@@ -105,7 +82,42 @@ Home.propTypes = {
   onEditItem: React.PropTypes.func.isRequired,
 };
 
+const mapStateToProps = (state) => {
+  const day = state.days.byId[state.day];
+  return {
+    day: {
+      ...day,
+      periods: day.periods.map((periodId) => {
+        const period = state.periods.byId[periodId];
+        return {
+          ...period,
+          planned: period.planned.map((itemId) => state.items.byId[itemId]),
+          actual: period.actual.map((itemId) => state.items.byId[itemId]),
+          interruptions: [],
+        };
+      }),
+    },
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onAddPeriod: (e) => {
+    dispatch(addPeriod());
+  },
+  onEditItem: (newItem) => {
+    console.log('Editing new item', newItem, editItem());
+    // dispatch(editItem())
+  },
+});
 const ConnectedHome = connect(mapStateToProps, mapDispatchToProps)(Home);
 
+const App = () => (
+  <div>
+    <AddTodo />
+    <VisibleTodoList />
+    <Footer />
+    <ConnectedHome />
+  </div>
+);
 
 export default App;
