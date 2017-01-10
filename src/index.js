@@ -46,15 +46,15 @@ const INITIAL_STATE = {
       1: {
         id: 1,
         startTime: '3pm',
-        planned: [1, 2, 3],
+        planned: [1],
         actual: [],
         interruptions: [],
       },
       2: {
         id: 2,
         startTime: '4pm',
-        planned: [3],
-        actual: [1, 2, 3],
+        planned: [],
+        actual: [],
         interruptions: [],
       },
     },

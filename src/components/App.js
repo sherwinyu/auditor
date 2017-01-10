@@ -29,7 +29,7 @@ const Period = ({period, onEditItem}) => (
       />
     )}
     <h4>Interruptions</h4>
-    {period.planned.map((item, idx) =>
+    {period.interruptions.map((item, idx) =>
       <Item
         item={item}
         key={idx}
