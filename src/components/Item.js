@@ -1,6 +1,18 @@
 import React from 'react';
 
 import {ITEM_SHAPE} from '../constants';
+import './Item.css';
+
+const joinWords = (words) => {
+  let str = '';
+  words.forEach((word) => {
+    if (str.charAt(str.length - 1) && str.charAt(str.length - 1) !== ' ' && word.charAt(0) !== ' ') {
+      str += ' ';
+    }
+    str += word;
+  });
+  return str;
+};
 
 const Item = React.createClass({
   propTypes: {
@@ -9,24 +21,41 @@ const Item = React.createClass({
   },
 
   getInitialState() {
-    return this._stateFromProps();
+    return this._stateFromProps(this.props);
   },
 
-  componentWillReceiveProps(prevProps) {
-    this.setState(this._stateFromProps());
+  componentWillReceiveProps(nextProps) {
+    if (nextProps !== this.props) {
+      this.setState(this._stateFromProps(nextProps));
+    }
   },
 
-  _stateFromProps() {
+  _stateFromProps(props) {
     return {
-      inputText: `${this.props.item.text} - ${this.props.item.duration}`,
+      inputText: `${props.item.text}`,
     };
   },
 
   _handleSaveItem() {
+    const matchedDuration = this.state.inputText.match(/(\d+) ?m(in)?s? ?/);
+    let text = this.state.inputText;
+    let duration;
+    if (matchedDuration) {
+      const durationText = matchedDuration[0];
+      duration = parseInt(matchedDuration[1], 10);
+      const index = matchedDuration.index;
+      text = joinWords([
+        text.substr(0, index),
+        text.substr(index + durationText.length),
+        durationText,
+      ]).replace(/\s+$/, '');
+    } else {
+      duration = null;
+    }
     this.props.onEditItem({
       id: this.props.item.id,
-      text: this.state.inputText,
-      duration: 5,
+      text,
+      duration,
     });
   },
 
@@ -34,14 +63,17 @@ const Item = React.createClass({
     const {item, onDeleteItem} = this.props;
 
     return (
-      <div className='item'>
+      <li className='item'>
         <input
+          className='item-input'
           value={this.state.inputText}
           onBlur={this._handleSaveItem}
           onChange={(e) => this.setState({inputText: e.target.value})}
         />
-        {item.text} - {item.duration}
-      </div>
+        <span className='small-text'>
+          {item.text} - {item.duration}
+        </span>
+      </li>
     );
   },
 });
