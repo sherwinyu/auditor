@@ -18,6 +18,9 @@ export const toggleTodo = (id) => ({
 // --------------------------------
 export const addPeriod = () => ({
   type: 'ADD_PERIOD',
+  payload: {
+    id: Math.random(),
+  },
 });
 
 export const editItem = ({id, text, duration}) => ({
