@@ -60,7 +60,7 @@ const Item = React.createClass({
   },
 
   render() {
-    const {item, onDeleteItem} = this.props;
+    const {item} = this.props;
 
     return (
       <li className='item'>

@@ -2,7 +2,7 @@ import React from 'react';
 
 export const ITEM_SHAPE = React.PropTypes.shape({
   id: React.PropTypes.number.isRequired,
-  duration: React.PropTypes.number.isRequired,
+  duration: React.PropTypes.number,
   text: React.PropTypes.string.isRequired,
 });
 
