@@ -80,7 +80,9 @@ const items = (state = {}, action) => {
 };
 
 const todoApp = (state = {}, action) => {
-  let overrides = {};
+  let overrides = {
+    days: state.days
+  };
   if (action.type === 'ADD_PERIOD') {
     overrides = {
       days: days(state.days, action, state.day),
