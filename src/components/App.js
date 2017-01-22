@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 
 import {PERIOD_SHAPE, DAY_SHAPE} from '../constants';
 import Item from './Item';
+import './Period.css';
 
 import Footer from './Footer';
 import {addPeriod, editItem} from '../actions/index.js';
@@ -10,32 +11,45 @@ import AddTodo from '../containers/AddTodo';
 import VisibleTodoList from '../containers/VisibleTodoList';
 
 const Period = ({period, onEditItem}) => (
-  <div>
-    <h3>{period.startTime}</h3>
-    <h4>Planned</h4>
-    {period.planned.map((item, idx) =>
-      <Item
-        item={item}
-        key={idx}
-        onEditItem={onEditItem}
-      />
-    )}
-    <h4>Actual</h4>
-    {period.actual.map((item, idx) =>
-      <Item
-        item={item}
-        key={idx}
-        onEditItem={onEditItem}
-      />
-    )}
-    <h4>Interruptions</h4>
-    {period.interruptions.map((item, idx) =>
-      <Item
-        item={item}
-        key={idx}
-        onEditItem={onEditItem}
-      />
-    )}
+  <div className='period'>
+    <div className='period-time'>
+      <h3>{period.startTime}</h3>
+    </div>
+    <div className='period-itemGroups'>
+
+      <div className='period-itemGroup'>
+        <h4 className='period-itemGroupLabel'>Planned</h4>
+        {period.planned.map((item, idx) =>
+          <Item
+            item={item}
+            key={idx}
+            onEditItem={onEditItem}
+          />
+        )}
+      </div>
+
+      <div className='period-itemGroup'>
+        <h4 className='period-itemGroupLabel'>Actual</h4>
+        {period.actual.map((item, idx) =>
+          <Item
+            item={item}
+            key={idx}
+            onEditItem={onEditItem}
+          />
+        )}
+      </div>
+
+      <div className='period-itemGroup'>
+        <h4 className='period-itemGroupLabel'>Interruptions</h4>
+        {period.interruptions.map((item, idx) =>
+          <Item
+            item={item}
+            key={idx}
+            onEditItem={onEditItem}
+          />
+        )}
+      </div>
+    </div>
   </div>
 );
 

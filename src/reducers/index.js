@@ -42,7 +42,7 @@ const periods = (state = {}, action) => {
           ...state.byId,
           [action.payload.id]: {
             id: action.payload.id,
-          startTime: (new Date()).toISOString(),
+            startTime: (new Date()).toISOString(),
             planned: [],
             actual: [],
             interruptions: [],

@@ -1,0 +1,40 @@
+.period {
+  border: 1px solid rgb(192, 192, 192);
+  display: flex;
+  flex-direction: row;
+}
+.period-time {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5px;
+}
+.period-itemGroups {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}
+.period-itemGroup {
+  border-bottom: 1px solid rgb(192, 192, 192);
+}
+.period-itemGroup:last-child {
+  border-bottom: none;
+}
+.period-itemGroupLabel {
+  color: rgb(192, 192, 192);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 12px;
+  height: 12px;
+  margin: 2px;
+}
+
+.small-text {
+  font-size: 80%;
+  color: gray;
+}
+
+body {
+  font-family: sans-serif;
+}
