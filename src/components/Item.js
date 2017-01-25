@@ -3,6 +3,15 @@ import React from 'react';
 import {ITEM_SHAPE} from '../constants';
 import './Item.css';
 
+function _indexOf(haystack, needle) {
+  for (let i = 0; i < haystack.length; i++) {
+    if (haystack[i] === needle) {
+      return i;
+    }
+  }
+  return null;
+}
+
 const joinWords = (words) => {
   let str = '';
   words.forEach((word) => {
@@ -59,11 +68,34 @@ const Item = React.createClass({
     });
   },
 
+  _handleKeyDown(e) {
+    // DOWN
+    if (e.which === 40) {
+      e.preventDefault();
+      const inputs = document.getElementsByClassName('item-input');
+      const index = _indexOf(inputs, e.target);
+      if (index != null && inputs[index + 1]) {
+        inputs[index + 1].focus();
+      }
+    // UP
+    } else if (e.which === 38) {
+      e.preventDefault();
+      const inputs = document.getElementsByClassName('item-input');
+      const index = _indexOf(inputs, e.target);
+      if (index && inputs[index - 1]) {
+        inputs[index - 1].focus();
+      }
+    }
+  },
+
   render() {
     const {item} = this.props;
 
     return (
-      <li className='item'>
+      <li
+        className='item'
+        onKeyDown={this._handleKeyDown}
+      >
         <span className='item-durationBadge'>
           {item.duration != null
             ? `${item.duration}m`
