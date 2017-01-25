@@ -1,5 +1,8 @@
 .item {
-  border-bottom: 1px solid rgb(192, 192, 192);
+  border-bottom: 1px solid rgba(192, 192, 192, 0.1);
+  position: relative;
+  list-style: none;
+  margin-left: 20px;
 }
 .item:last-child{
   border-bottom: none;
@@ -18,7 +21,11 @@
   color: black;
 }
 
-.small-text {
-  font-size: 80%;
-  color: gray;
+.item-durationBadge {
+  font-size: 10px;
+  width: 30px;
+  display: inline-block;
+  font-weight: 900;
+  color: rgb(216, 216, 216);
 }
+

@@ -27,17 +27,17 @@ const INITIAL_STATE = {
       1: {
         id: 1,
         duration: 30,
-        text: 'Destroy email',
+        text: 'Destroy email 30m',
       },
       2: {
         id: 2,
         duration: 5,
-        text: 'Order instacart',
+        text: 'Order instacart 15m',
       },
       3: {
         id: 3,
         duration: 15,
-        text: 'sync with reed',
+        text: 'sync with reed 15m',
       },
     },
   },
@@ -46,7 +46,7 @@ const INITIAL_STATE = {
       1: {
         id: 1,
         startTime: '3pm',
-        planned: [1],
+        planned: [1, 2, 3],
         actual: [],
         interruptions: [],
       },

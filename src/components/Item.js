@@ -64,15 +64,18 @@ const Item = React.createClass({
 
     return (
       <li className='item'>
+        <span className='item-durationBadge'>
+          {item.duration != null
+            ? `${item.duration}m`
+            : ''
+          }
+        </span>
         <input
           className='item-input'
           value={this.state.inputText}
           onBlur={this._handleSaveItem}
           onChange={(e) => this.setState({inputText: e.target.value})}
         />
-        <span className='small-text'>
-          {item.text} - {item.duration}
-        </span>
       </li>
     );
   },
