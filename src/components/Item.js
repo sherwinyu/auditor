@@ -26,6 +26,8 @@ const joinWords = (words) => {
 const Item = React.createClass({
   propTypes: {
     item: ITEM_SHAPE.isRequired,
+    index: React.PropTypes.number.isRequired,
+    onInsertItem: React.PropTypes.func.isRequired,
     onEditItem: React.PropTypes.func.isRequired,
   },
 
@@ -68,7 +70,19 @@ const Item = React.createClass({
     });
   },
 
+  _insertNewItemAt(idx) {
+    this.props.onInsertItem(idx);
+  },
+
   _handleKeyDown(e) {
+    // ENTER
+    if (e.which === 13 && !e.shiftKey) {
+      this._insertNewItemAt(this.props.index + 1);
+    }
+    // SHIFT ENTER
+    if (e.which === 13 && e.shiftKey) {
+      this._insertNewItemAt(this.props.index);
+    }
     // DOWN
     if (e.which === 40) {
       e.preventDefault();

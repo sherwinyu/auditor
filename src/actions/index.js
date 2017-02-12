@@ -32,6 +32,13 @@ export const editItem = ({id, text, duration}) => ({
   },
 });
 
+export const insertItem = ({index}) => ({
+  type: 'INSERT_ITEM',
+  payload: {
+    index,
+  },
+});
+
 /*
 editPeriod
 autofillPeriodsForDa
