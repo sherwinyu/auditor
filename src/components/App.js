@@ -10,15 +10,17 @@ import {addPeriod, editItem, insertItem} from '../actions/index.js';
 import AddTodo from '../containers/AddTodo';
 import VisibleTodoList from '../containers/VisibleTodoList';
 
-const ItemGroup = ({title, items, onInsertItem, onEditItem}) => (
+const ItemGroup = ({periodId, title, type, items, onInsertNewItem, onEditItem}) => (
   <div className='period-itemGroup'>
     <h4 className='period-itemGroupLabel'>{title}</h4>
     {items.map((item, idx) =>
       <Item
+        periodId={periodId}
+        type={type}
         item={item}
         key={idx}
         index={idx}
-        onInsertItem={onInsertItem}
+        onInsertNewItem={onInsertNewItem}
         onEditItem={onEditItem}
       />
     )}
@@ -26,13 +28,15 @@ const ItemGroup = ({title, items, onInsertItem, onEditItem}) => (
 );
 
 ItemGroup.propTypes = {
+  periodId: React.PropTypes.number.isRequired,
+  type: React.PropTypes.oneOf(['planned', 'actual', 'interruptions']).isRequired,
   title: React.PropTypes.string.isRequired,
   items: React.PropTypes.arrayOf(ITEM_SHAPE).isRequired,
   onEditItem: React.PropTypes.func.isRequired,
-  onInsertItem: React.PropTypes.func.isRequired,
+  onInsertNewItem: React.PropTypes.func.isRequired,
 };
 
-const Period = ({period, onEditItem, onInsertItem}) => (
+const Period = ({period, onEditItem, onInsertNewItem}) => (
   <div className='period'>
     <div className='period-time'>
       <h3>{period.startTime}</h3>
@@ -40,24 +44,30 @@ const Period = ({period, onEditItem, onInsertItem}) => (
     <div className='period-itemGroups'>
 
       <ItemGroup
+        type='planned'
+        periodId={period.id}
         title='Planned'
         items={period.planned}
         onEditItem={onEditItem}
-        onInsertItem={onInsertItem}
+        onInsertNewItem={onInsertNewItem}
       />
 
       <ItemGroup
+        type='actual'
+        periodId={period.id}
         title='Actual'
         items={period.actual}
         onEditItem={onEditItem}
-        onInsertItem={onInsertItem}
+        onInsertNewItem={onInsertNewItem}
       />
 
       <ItemGroup
+        type='interruptions'
+        periodId={period.id}
         title='Interruptions'
         items={period.interruptions}
         onEditItem={onEditItem}
-        onInsertItem={onInsertItem}
+        onInsertNewItem={onInsertNewItem}
       />
 
     </div>
@@ -67,10 +77,10 @@ const Period = ({period, onEditItem, onInsertItem}) => (
 Period.propTypes = {
   period: PERIOD_SHAPE,
   onEditItem: React.PropTypes.func.isRequired,
-  onInsertItem: React.PropTypes.func.isRequired,
+  onInsertNewItem: React.PropTypes.func.isRequired,
 };
 
-const Day = ({day, onAddPeriod, onEditItem, onInsertItem}) => (
+const Day = ({day, onAddPeriod, onEditItem, onInsertNewItem}) => (
   <div>
     <h2>{day.date}</h2>
     <button
@@ -83,7 +93,7 @@ const Day = ({day, onAddPeriod, onEditItem, onInsertItem}) => (
         period={period}
         key={period.startTime}
         onEditItem={onEditItem}
-        onInsertItem={onInsertItem}
+        onInsertNewItem={onInsertNewItem}
       />
     )}
   </div>
@@ -93,15 +103,15 @@ Day.propTypes = {
   day: DAY_SHAPE,
   onAddPeriod: React.PropTypes.func.isRequired,
   onEditItem: React.PropTypes.func.isRequired,
-  onInsertItem: React.PropTypes.func.isRequired,
+  onInsertNewItem: React.PropTypes.func.isRequired,
 };
 
-const Home = ({day, onAddPeriod, onEditItem, onInsertItem}) => (
+const Home = ({day, onAddPeriod, onEditItem, onInsertNewItem}) => (
   <Day
     day={day}
     onAddPeriod={onAddPeriod}
     onEditItem={onEditItem}
-    onInsertItem={onInsertItem}
+    onInsertNewItem={onInsertNewItem}
   />
 );
 
@@ -109,7 +119,7 @@ Home.propTypes = {
   day: DAY_SHAPE,
   onAddPeriod: React.PropTypes.func.isRequired,
   onEditItem: React.PropTypes.func.isRequired,
-  onInsertItem: React.PropTypes.func.isRequired,
+  onInsertNewItem: React.PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -138,11 +148,10 @@ const mapDispatchToProps = (dispatch) => ({
     // console.log('Editing new item', editItem({id, text, duration}));
     dispatch(editItem({id, text, duration}));
   },
-  onInsertItem: (index) => {
-    console.log('Inserting new item', insertItem({index}));
-    dispatch(insertItem(index));
-  }
-
+  onInsertNewItem: (type, periodId, index) => {
+    console.log('Inserting new item after', insertItem(type, periodId, index));
+    dispatch(insertItem(type, periodId, index));
+  },
 });
 const ConnectedHome = connect(mapStateToProps, mapDispatchToProps)(Home);
 

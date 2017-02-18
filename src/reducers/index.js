@@ -1,20 +1,8 @@
 import {combineReducers} from 'redux';
+import reactUpdate from 'react-addons-update';
+
 import todos from './todos';
 import visibilityFilter from './visibilityFilter';
-
-// const period = (state = {}, action) => {
-//   switch (action.type) {
-//     case 'ADD_PERIOD':
-//       return {
-//         startTime: (new Date()).toISOString(),
-//         planned: [],
-//         actual: [],
-//         interruptions: [],
-//       };
-//     default:
-//       return state;
-//   }
-// };
 
 const days = (state = {}, action, currentDay) => {
   switch (action.type) {
@@ -49,6 +37,20 @@ const periods = (state = {}, action) => {
           },
         },
       };
+    case 'INSERT_ITEM': // eslint-disable-line
+      return {
+        byId: {
+          ...state.byId,
+          [action.payload.periodId]: {
+            ...state.byId[action.payload.periodId],
+            [action.payload.type]: reactUpdate(
+              state.byId[action.payload.periodId][action.payload.type], {
+                $splice: [[action.payload.index, 0, action.payload.newId]],
+              }
+            ),
+          },
+        },
+      };
     default:
       return state;
   }
@@ -70,10 +72,32 @@ function editItem(state = {}, action) {
   };
 }
 
+function newItem(id) {
+  return {
+    id,
+    text: '',
+    duration: null,
+    planned: [],
+    actual: [],
+    interruptions: [],
+  };
+}
+
+function insertItem(state = {}, action) {
+  const item = newItem(action.payload.newId);
+  return {
+    byId: {
+      ...state.byId,
+      [action.payload.newId]: item,
+    },
+  };
+}
+
 
 const items = (state = {}, action) => {
   switch (action.type) {
     case 'EDIT_ITEM': return editItem(state, action);
+    case 'INSERT_ITEM': return insertItem(state, action);
     default:
       return state;
   }
@@ -81,7 +105,7 @@ const items = (state = {}, action) => {
 
 const todoApp = (state = {}, action) => {
   let overrides = {
-    days: state.days
+    days: state.days,
   };
   if (action.type === 'ADD_PERIOD') {
     overrides = {

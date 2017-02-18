@@ -16,6 +16,9 @@ export const toggleTodo = (id) => ({
 });
 
 // --------------------------------
+
+let nextItemId = 100;
+
 export const addPeriod = () => ({
   type: 'ADD_PERIOD',
   payload: {
@@ -32,10 +35,13 @@ export const editItem = ({id, text, duration}) => ({
   },
 });
 
-export const insertItem = ({index}) => ({
+export const insertItem = (type, periodId, index) => ({
   type: 'INSERT_ITEM',
   payload: {
+    periodId,
+    type,
     index,
+    newId: nextItemId++,
   },
 });
 
