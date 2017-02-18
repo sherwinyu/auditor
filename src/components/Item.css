@@ -29,3 +29,9 @@
   color: rgb(216, 216, 216);
 }
 
+.period-itemGroupLabel:focus {
+  outline: none;
+  text-decoration: underline;
+  color: rgb(192, 192, 192);
+
+}

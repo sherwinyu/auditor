@@ -1,27 +1,9 @@
 import React from 'react';
 
+import {joinWords, handleUpDownShortcut} from '../lib';
+
 import {ITEM_SHAPE} from '../constants';
 import './Item.css';
-
-function _indexOf(haystack, needle) {
-  for (let i = 0; i < haystack.length; i++) {
-    if (haystack[i] === needle) {
-      return i;
-    }
-  }
-  return null;
-}
-
-const joinWords = (words) => {
-  let str = '';
-  words.forEach((word) => {
-    if (str.charAt(str.length - 1) && str.charAt(str.length - 1) !== ' ' && word.charAt(0) !== ' ') {
-      str += ' ';
-    }
-    str += word;
-  });
-  return str;
-};
 
 const Item = React.createClass({
   propTypes: {
@@ -85,23 +67,7 @@ const Item = React.createClass({
     if (e.which === 13 && e.shiftKey) {
       this._insertNewItemAt(this.props.index);
     }
-    // DOWN
-    if (e.which === 40) {
-      e.preventDefault();
-      const inputs = document.getElementsByClassName('item-input');
-      const index = _indexOf(inputs, e.target);
-      if (index != null && inputs[index + 1]) {
-        inputs[index + 1].focus();
-      }
-    // UP
-    } else if (e.which === 38) {
-      e.preventDefault();
-      const inputs = document.getElementsByClassName('item-input');
-      const index = _indexOf(inputs, e.target);
-      if (index && inputs[index - 1]) {
-        inputs[index - 1].focus();
-      }
-    }
+    handleUpDownShortcut(e);
   },
 
   render() {
@@ -119,7 +85,7 @@ const Item = React.createClass({
           }
         </span>
         <input
-          className='item-input'
+          className='item-input js-tabbable'
           value={this.state.inputText}
           onBlur={this._handleSaveItem}
           onChange={(e) => this.setState({inputText: e.target.value})}

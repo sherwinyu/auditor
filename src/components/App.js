@@ -5,14 +5,28 @@ import {DAY_SHAPE, ITEM_SHAPE, PERIOD_SHAPE} from '../constants';
 import Item from './Item';
 import './Period.css';
 
+import {handleUpDownShortcut} from '../lib';
+
 import Footer from './Footer';
 import {addPeriod, editItem, insertItem} from '../actions/index.js';
 import AddTodo from '../containers/AddTodo';
 import VisibleTodoList from '../containers/VisibleTodoList';
 
+
 const ItemGroup = ({periodId, title, type, items, onInsertNewItem, onEditItem}) => (
   <div className='period-itemGroup'>
-    <h4 className='period-itemGroupLabel'>{title}</h4>
+    <h4
+      tabIndex={0}
+      className='period-itemGroupLabel js-tabbable'
+      onKeyDown={(e) => {
+        handleUpDownShortcut(e);
+        if (e.which === 13 && !e.shiftKey) {
+          onInsertNewItem(type, periodId, 0);
+        }
+      }}
+    >
+      {title}
+    </h4>
     {items.map((item, idx) =>
       <Item
         periodId={periodId}
