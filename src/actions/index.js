@@ -45,6 +45,15 @@ export const insertItem = (type, periodId, index) => ({
   },
 });
 
+export const deleteItem = ({id, periodId, type, index}) => ({
+  type: 'DELETE_ITEM',
+  payload: {
+    id,
+    periodId,
+    type,
+    index,
+  },
+});
 /*
 editPeriod
 autofillPeriodsForDa

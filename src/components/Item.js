@@ -13,6 +13,7 @@ const Item = React.createClass({
     index: React.PropTypes.number.isRequired,
     onInsertNewItem: React.PropTypes.func.isRequired,
     onEditItem: React.PropTypes.func.isRequired,
+    onDeleteItem: React.PropTypes.func.isRequired,
   },
 
   getInitialState() {
@@ -66,6 +67,15 @@ const Item = React.createClass({
     // SHIFT ENTER
     if (e.which === 13 && e.shiftKey) {
       this._insertNewItemAt(this.props.index);
+    }
+    // SHIFT+DELETE
+    if ((e.which === 8 || e.which === 46) && e.shiftKey) {
+      this.props.onDeleteItem({
+        id: this.props.item.id,
+        index: this.props.index,
+        periodId: this.props.periodId,
+        type: this.props.type,
+      });
     }
     handleUpDownShortcut(e);
   },

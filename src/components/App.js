@@ -8,12 +8,12 @@ import './Period.css';
 import {handleUpDownShortcut} from '../lib';
 
 import Footer from './Footer';
-import {addPeriod, editItem, insertItem} from '../actions/index.js';
+import {addPeriod, editItem, insertItem, deleteItem} from '../actions/index.js';
 import AddTodo from '../containers/AddTodo';
 import VisibleTodoList from '../containers/VisibleTodoList';
 
 
-const ItemGroup = ({periodId, title, type, items, onInsertNewItem, onEditItem}) => (
+const ItemGroup = ({periodId, title, type, items, onInsertNewItem, onEditItem, onDeleteItem}) => (
   <div className='period-itemGroup'>
     <h4
       tabIndex={0}
@@ -36,6 +36,7 @@ const ItemGroup = ({periodId, title, type, items, onInsertNewItem, onEditItem}) 
         index={idx}
         onInsertNewItem={onInsertNewItem}
         onEditItem={onEditItem}
+        onDeleteItem={onDeleteItem}
       />
     )}
   </div>
@@ -48,9 +49,10 @@ ItemGroup.propTypes = {
   items: React.PropTypes.arrayOf(ITEM_SHAPE).isRequired,
   onEditItem: React.PropTypes.func.isRequired,
   onInsertNewItem: React.PropTypes.func.isRequired,
+  onDeleteItem: React.PropTypes.func.isRequired,
 };
 
-const Period = ({period, onEditItem, onInsertNewItem}) => (
+const Period = ({period, onEditItem, onInsertNewItem, onDeleteItem}) => (
   <div className='period'>
     <div className='period-time'>
       <h3>{period.startTime}</h3>
@@ -64,6 +66,7 @@ const Period = ({period, onEditItem, onInsertNewItem}) => (
         items={period.planned}
         onEditItem={onEditItem}
         onInsertNewItem={onInsertNewItem}
+        onDeleteItem={onDeleteItem}
       />
 
       <ItemGroup
@@ -73,6 +76,7 @@ const Period = ({period, onEditItem, onInsertNewItem}) => (
         items={period.actual}
         onEditItem={onEditItem}
         onInsertNewItem={onInsertNewItem}
+        onDeleteItem={onDeleteItem}
       />
 
       <ItemGroup
@@ -82,6 +86,7 @@ const Period = ({period, onEditItem, onInsertNewItem}) => (
         items={period.interruptions}
         onEditItem={onEditItem}
         onInsertNewItem={onInsertNewItem}
+        onDeleteItem={onDeleteItem}
       />
 
     </div>
@@ -92,9 +97,10 @@ Period.propTypes = {
   period: PERIOD_SHAPE,
   onEditItem: React.PropTypes.func.isRequired,
   onInsertNewItem: React.PropTypes.func.isRequired,
+  onDeleteItem: React.PropTypes.func.isRequired,
 };
 
-const Day = ({day, onAddPeriod, onEditItem, onInsertNewItem}) => (
+const Day = ({day, onAddPeriod, onEditItem, onInsertNewItem, onDeleteItem}) => (
   <div>
     <h2>{day.date}</h2>
     <button
@@ -108,6 +114,7 @@ const Day = ({day, onAddPeriod, onEditItem, onInsertNewItem}) => (
         key={period.startTime}
         onEditItem={onEditItem}
         onInsertNewItem={onInsertNewItem}
+        onDeleteItem={onDeleteItem}
       />
     )}
   </div>
@@ -118,14 +125,16 @@ Day.propTypes = {
   onAddPeriod: React.PropTypes.func.isRequired,
   onEditItem: React.PropTypes.func.isRequired,
   onInsertNewItem: React.PropTypes.func.isRequired,
+  onDeleteItem: React.PropTypes.func.isRequired,
 };
 
-const Home = ({day, onAddPeriod, onEditItem, onInsertNewItem}) => (
+const Home = ({day, onAddPeriod, onEditItem, onInsertNewItem, onDeleteItem}) => (
   <Day
     day={day}
     onAddPeriod={onAddPeriod}
     onEditItem={onEditItem}
     onInsertNewItem={onInsertNewItem}
+    onDeleteItem={onDeleteItem}
   />
 );
 
@@ -134,6 +143,7 @@ Home.propTypes = {
   onAddPeriod: React.PropTypes.func.isRequired,
   onEditItem: React.PropTypes.func.isRequired,
   onInsertNewItem: React.PropTypes.func.isRequired,
+  onDeleteItem: React.PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -163,8 +173,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(editItem({id, text, duration}));
   },
   onInsertNewItem: (type, periodId, index) => {
-    console.log('Inserting new item after', insertItem(type, periodId, index));
     dispatch(insertItem(type, periodId, index));
+  },
+  onDeleteItem: ({id, index, periodId, type}) => {
+    dispatch(deleteItem({id, index, periodId, type}));
   },
 });
 const ConnectedHome = connect(mapStateToProps, mapDispatchToProps)(Home);

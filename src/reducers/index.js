@@ -51,6 +51,20 @@ const periods = (state = {}, action) => {
           },
         },
       };
+    case 'DELETE_ITEM': // eslint-disable-line
+      return {
+        byId: {
+          ...state.byId,
+          [action.payload.periodId]: {
+            ...state.byId[action.payload.periodId],
+            [action.payload.type]: reactUpdate(
+              state.byId[action.payload.periodId][action.payload.type], {
+                $splice: [[action.payload.index, 1]],
+              }
+            ),
+          },
+        },
+      };
     default:
       return state;
   }
@@ -93,11 +107,22 @@ function insertItem(state = {}, action) {
   };
 }
 
+function deleteItem(state = {}, action) {
+  // TODO fix this to not just set undefined, but rather delete the key altogether
+  return {
+    byId: {
+      ...state.byId,
+      [action.payload.id]: undefined,
+    },
+  };
+}
+
 
 const items = (state = {}, action) => {
   switch (action.type) {
     case 'EDIT_ITEM': return editItem(state, action);
     case 'INSERT_ITEM': return insertItem(state, action);
+    case 'DELETE_ITEM': return deleteItem(state, action);
     default:
       return state;
   }
