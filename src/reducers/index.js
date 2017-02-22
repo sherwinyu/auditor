@@ -4,15 +4,15 @@ import reactUpdate from 'react-addons-update';
 import todos from './todos';
 import visibilityFilter from './visibilityFilter';
 
-const days = (state = {}, action, currentDay) => {
+const days = (state = {}, action) => {
   switch (action.type) {
     case 'ADD_PERIOD':
       return Object.assign({}, state, {
         byId: {
           ...state.byId,
-          [currentDay]: {
-            ...state.byId[currentDay],
-            periods: [...state.byId[currentDay].periods, action.payload.id],
+          [state.currentDay]: {
+            ...state.byId[state.currentDay],
+            periods: [...state.byId[state.currentDay].periods, action.payload.id],
           },
         },
       });
@@ -21,7 +21,6 @@ const days = (state = {}, action, currentDay) => {
   }
 };
 
-const day = (state = {}, action) => state;
 const periods = (state = {}, action) => {
   switch (action.type) {
     case 'ADD_PERIOD':
@@ -129,23 +128,14 @@ const items = (state = {}, action) => {
 };
 
 const todoApp = (state = {}, action) => {
-  let overrides = {
-    days: state.days,
-  };
-  if (action.type === 'ADD_PERIOD') {
-    overrides = {
-      days: days(state.days, action, state.day),
-    };
-  }
   return {
     ...combineReducers({
       todos,
       visibilityFilter,
-      day,
+      days,
       periods,
       items,
     })(state, action),
-    ...overrides,
   };
 };
 

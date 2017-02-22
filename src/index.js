@@ -67,8 +67,8 @@ const INITIAL_STATE = {
         periods: [1, 2],
       },
     },
+    currentDay: 1,
   },
-  day: '1',
 };
 
 const store = createStore(reducer, INITIAL_STATE);

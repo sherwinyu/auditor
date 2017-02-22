@@ -147,12 +147,14 @@ Home.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const day = state.days.byId[state.day];
+  const day = state.days.byId[state.days.currentDay];
   return {
     day: {
       ...day,
+      // Denormalize day.periods
       periods: day.periods.map((periodId) => {
         const period = state.periods.byId[periodId];
+      // Denormalize planned, actual, interruptions
         return {
           ...period,
           planned: period.planned.map((itemId) => state.items.byId[itemId]),
