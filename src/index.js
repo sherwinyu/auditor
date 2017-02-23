@@ -57,6 +57,20 @@ const INITIAL_STATE = {
         actual: [],
         interruptions: [],
       },
+      3: {
+        id: 3,
+        startTime: '4:30pm',
+        planned: [],
+        actual: [],
+        interruptions: [],
+      },
+      4: {
+        id: 4,
+        startTime: '5:00pm (incoming)',
+        planned: [],
+        actual: [],
+        interruptions: [],
+      },
     },
   },
   days: {
@@ -64,7 +78,7 @@ const INITIAL_STATE = {
       1: {
         id: 1,
         date: '2016-03-02',
-        periods: [1, 2],
+        periods: [4, 3, 2, 1],
       },
     },
     currentDay: 1,

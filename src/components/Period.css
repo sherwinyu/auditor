@@ -1,7 +1,11 @@
 .period {
   border: 1px solid rgb(192, 192, 192);
+  border-bottom: none;
   display: flex;
   flex-direction: row;
+}
+.period:last-child {
+  border: 1px solid rgb(192, 192, 192);
 }
 .period-time {
   display: flex;
@@ -37,4 +41,9 @@ body {
 .small-text {
   font-size: 80%;
   color: gray;
+}
+
+h3 {
+  text-transform: uppercase;
+  font-weight: 300;
 }
