@@ -47,10 +47,21 @@ ItemGroup.propTypes = {
   onDeleteItem: React.PropTypes.func.isRequired,
 };
 
+function formatDate(isoDate) {
+  // TODO assert isoDate is a valid isoDate string
+  const date = new Date(isoDate);
+
+  let hours = date.getHours();
+  const minutes = date.getMinutes() < 30 ? '00' : '30';
+  const postfix = hours < 12 ? 'AM' : 'PM';
+  hours %= 12;
+  return `${hours}:${minutes}${postfix}`;
+}
+
 export const Period = ({period, onEditItem, onInsertNewItem, onDeleteItem}) => (
   <div className='period'>
     <div className='period-time'>
-      <h4>{period.startTime}</h4>
+      <h4>{formatDate(period.startTime)}</h4>
     </div>
     <div className='period-itemGroups'>
 
